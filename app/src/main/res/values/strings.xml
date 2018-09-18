@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Foreign Travel Advice</string>
+    <string name="genericError">An error occurred.</string>
+    <string name="noConnection">No Internet connection</string>
+</resources>
