@@ -1,24 +1,28 @@
 package uk.co.flat14.ftaa.domain.interactor
 
 import io.reactivex.Single
-import uk.co.flat14.ftaa.data.RepositoryFactory
-import uk.co.flat14.ftaa.domain.interactor.type.UseCase
-import uk.co.flat14.ftaa.domain.model.Country
+import uk.co.flat14.ftaa.domain.model.CountryInformation
 import uk.co.flat14.ftaa.domain.repository.CountryRepository
 
-class GetCountriesUseCaseImpl: GetCountriesUseCase {
+class GetCountriesUseCaseImpl(private val countryRepository: CountryRepository ): GetCountriesUseCase {
 
-    private var countryRepository: CountryRepository = RepositoryFactory().getCountryRepository()
-
-    override fun execute(): Single<List<Country>> {
+    override fun execute(): Single<List<CountryInformation>> {
         return countryRepository.getCountries()
                 // Map the response to Entity model
                 .map { response ->
-                    val countryList = ArrayList<Country>()
-                    for (child in response.links.children){
-                        countryList.add(Country(child.country.name, child.webUrl))
+                    val countryInformationList = arrayListOf<CountryInformation>()
+                    response.links.children.map {
+                        countryInformationList.add(
+                            CountryInformation(
+                                name = it.details.country.name,
+                                details = it.details.latestDescription,
+                                webUrl = it.webUrl
+                            )
+                        )
                     }
-                    countryList.toList()
+                    countryInformationList.toList().sortedBy {
+                        it.name
+                    }
                 }
     }
 

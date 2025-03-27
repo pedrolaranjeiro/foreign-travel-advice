@@ -6,15 +6,14 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 import org.mockito.Mockito.verify
-import uk.co.flat14.ftaa.domain.model.Country
+import uk.co.flat14.ftaa.domain.model.CountryInformation
 import io.reactivex.Single
 import io.reactivex.plugins.RxJavaPlugins
-import org.mockito.Mock
 import uk.co.flat14.ftaa.domain.interactor.GetCountriesUseCase
-import uk.co.flat14.ftaa.domain.interactor.UseCaseFactory
-import uk.co.flat14.ftaa.domain.repository.CountryRepository
+import uk.co.flat14.ftaa.presentation.old.CountryListPresenter
+import uk.co.flat14.ftaa.presentation.old.CountryListView
 
-class CountryListPresenterTest {
+class CountryInformationListPresenterTest {
 
 
 
@@ -38,7 +37,7 @@ class CountryListPresenterTest {
         val presenter = CountryListPresenter(listView)
         presenter.countriesUseCase = useCase
 
-        val expectedResult = ArrayList<Country>()
+        val expectedResult = ArrayList<CountryInformation>()
         Mockito.`when`(useCase.execute()).thenReturn(Single.just(expectedResult))
 
         // When

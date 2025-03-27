@@ -1,13 +1,12 @@
 package uk.co.flat14.ftaa.data
 
 import io.reactivex.Single
-import uk.co.flat14.ftaa.data.models.CountryListReponse
-import uk.co.flat14.ftaa.domain.model.Country
+import uk.co.flat14.ftaa.data.models.CountryListResponse
 import uk.co.flat14.ftaa.domain.repository.CountryRepository
 
-class CountryRepositoryImpl: CountryRepository {
+class CountryRepositoryImpl(private val dataStore: RemoteCountryDataStore): CountryRepository {
 
-    override fun getCountries(): Single<CountryListReponse> {
-        return countryApi.getCountries()
+    override fun getCountries(): Single<CountryListResponse> {
+        return dataStore.getCountries()
     }
 }

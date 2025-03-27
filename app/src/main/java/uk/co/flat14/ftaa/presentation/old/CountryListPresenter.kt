@@ -1,4 +1,4 @@
-package uk.co.flat14.ftaa.presentation
+package uk.co.flat14.ftaa.presentation.old
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -10,7 +10,7 @@ import java.net.UnknownHostException
 
 class CountryListPresenter (val view: CountryListView){
 
-    var countriesUseCase: GetCountriesUseCase = UseCaseFactory().getCountriesUseCase()
+ /*   var countriesUseCase: GetCountriesUseCase = UseCaseFactory().getCountriesUseCase()
 
     fun getCountries(){
         view.showProgress()
@@ -29,7 +29,7 @@ class CountryListPresenter (val view: CountryListView){
                         view.showError(R.string.genericError)
                     }
                 })
-    }
+    }*/
 
 
 }

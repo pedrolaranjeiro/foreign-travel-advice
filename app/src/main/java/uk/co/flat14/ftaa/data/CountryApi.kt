@@ -5,12 +5,12 @@ import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import uk.co.flat14.ftaa.data.models.CountryListReponse
+import uk.co.flat14.ftaa.data.models.CountryListResponse
 
 interface CountryApi {
 
     @GET("content/foreign-travel-advice")
-    fun getCountries(): Single<CountryListReponse>
+    fun getCountries(): Single<CountryListResponse>
 }
 
 
