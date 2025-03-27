@@ -1,5 +1,6 @@
 package uk.co.flat14.ftaa.presentation.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,11 +15,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
 import uk.co.flat14.ftaa.domain.model.CountryInformation
+import uk.co.flat14.ftaa.presentation.CountryDetailRoute
+import uk.co.flat14.ftaa.presentation.LocalNavController
 import uk.co.flat14.ftaa.presentation.viewmodels.CountryListState
 import uk.co.flat14.ftaa.presentation.viewmodels.CountryListViewModel
 
@@ -29,7 +31,6 @@ fun CountryListScreen(
     viewModel: CountryListViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    viewModel.getCountries()
     CountryListScreen(uiState = uiState)
 }
 
@@ -59,12 +60,18 @@ fun CountryList(countryInformationList: List<CountryInformation>) {
 
 
 @Composable
-fun CountryItem(countryInformation: CountryInformation) {
+fun CountryItem(
+    countryInformation: CountryInformation
+) {
+    val navController = LocalNavController.current
     Card(
         modifier = Modifier
             .padding(all = 8.dp)
             .fillMaxWidth()
             .height(75.dp)
+            .clickable {
+                navController.navigate(CountryDetailRoute(countryInformation.name))
+            }
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -74,7 +81,6 @@ fun CountryItem(countryInformation: CountryInformation) {
         ) {
             Text(
                 textAlign = TextAlign.Center,
-
                 text = countryInformation.name,
                 modifier = Modifier
                     .padding(all = 8.dp)
@@ -84,13 +90,3 @@ fun CountryItem(countryInformation: CountryInformation) {
     }
 }
 
-@Preview
-@Composable
-fun PreviewCountryList() {
-    CountryList(
-        listOf(
-            CountryInformation("United Kingdon", "This is safe", "www"),
-            CountryInformation("Australia", "This is safe but be careful with the spiders", "")
-        )
-    )
-}

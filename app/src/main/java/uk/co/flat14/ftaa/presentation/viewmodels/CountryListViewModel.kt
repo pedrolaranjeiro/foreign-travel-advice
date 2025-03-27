@@ -14,32 +14,28 @@ import uk.co.flat14.ftaa.domain.model.CountryInformation
 class CountryListViewModel(
     private val getCountriesUseCase: GetCountriesUseCase
 ): ViewModel(){
+
+    private val _uiState = MutableStateFlow(CountryListState.Success(emptyList()))
+    val uiState : StateFlow<CountryListState> = _uiState.asStateFlow()
+
+    init {
+        getCountries()
+    }
+
     fun getCountries() {
         getCountriesUseCase.execute()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError {
-              it
+                it
             }.
-        doOnSuccess {
-           _uiState.update {currentState ->
-               currentState.copy(countryInformationList = it)
-           }
-        }.subscribe()
+            doOnSuccess {
+                _uiState.update {currentState ->
+                    currentState.copy(countryInformationList = it)
+                }
+            }.subscribe()
     }
-
-
-
-    private val _uiState = MutableStateFlow(CountryListState.Success(emptyList()))
-    val uiState : StateFlow<CountryListState> = _uiState.asStateFlow()
-
-
-
-
 }
-
-
-
 
 sealed interface  CountryListState{
     data object Loading: CountryListState
