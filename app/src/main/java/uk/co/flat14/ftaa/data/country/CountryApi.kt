@@ -1,16 +1,15 @@
-package uk.co.flat14.ftaa.data
+package uk.co.flat14.ftaa.data.country
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import io.reactivex.Single
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import uk.co.flat14.ftaa.data.models.CountryListResponse
 
 interface CountryApi {
 
     @GET("content/foreign-travel-advice")
-    fun getCountries(): Single<CountryListResponse>
+    fun getCountries(): Call<CountryListResponse>
 }
 
 
@@ -22,4 +21,4 @@ private val retrofit = Retrofit.Builder()
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
 
-val countryApi = retrofit.create(CountryApi::class.java)
+val countryApi: CountryApi = retrofit.create(CountryApi::class.java)

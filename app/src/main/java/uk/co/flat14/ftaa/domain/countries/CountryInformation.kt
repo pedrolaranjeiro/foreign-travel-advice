@@ -1,4 +1,4 @@
-package uk.co.flat14.ftaa.domain.model
+package uk.co.flat14.ftaa.domain.countries
 
 import kotlinx.serialization.Serializable
 

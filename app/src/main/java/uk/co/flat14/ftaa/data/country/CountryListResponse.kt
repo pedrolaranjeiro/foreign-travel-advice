@@ -1,4 +1,4 @@
-package uk.co.flat14.ftaa.data.models
+package uk.co.flat14.ftaa.data.country
 
 import com.google.gson.annotations.SerializedName
 

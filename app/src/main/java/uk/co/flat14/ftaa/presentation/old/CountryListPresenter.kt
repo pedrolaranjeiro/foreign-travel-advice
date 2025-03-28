@@ -1,13 +1,5 @@
 package uk.co.flat14.ftaa.presentation.old
 
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import uk.co.flat14.ftaa.R
-import uk.co.flat14.ftaa.domain.interactor.GetCountriesUseCase
-
-import uk.co.flat14.ftaa.domain.interactor.UseCaseFactory
-import java.net.UnknownHostException
-
 class CountryListPresenter (val view: CountryListView){
 
  /*   var countriesUseCase: GetCountriesUseCase = UseCaseFactory().getCountriesUseCase()

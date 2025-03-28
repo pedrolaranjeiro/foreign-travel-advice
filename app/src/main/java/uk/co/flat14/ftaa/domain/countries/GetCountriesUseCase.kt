@@ -1,18 +1,16 @@
-package uk.co.flat14.ftaa.domain.interactor
+package uk.co.flat14.ftaa.domain.countries
 
-import io.reactivex.Single
-import uk.co.flat14.ftaa.domain.model.CountryInformation
-import uk.co.flat14.ftaa.domain.repository.CountryRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-class GetCountriesUseCaseImpl(private val countryRepository: CountryRepository) :
-    GetCountriesUseCase {
+class GetCountriesUseCase(private val countryRepository: CountryRepository){
 
-    override fun execute(): Single<List<CountryInformation>> {
+    fun execute(): Flow<List<CountryInformation>> {
         return countryRepository.getCountries()
             // Map the response to Entity model
             .map { response ->
                 val countryInformationList = arrayListOf<CountryInformation>()
-                response.links.children.map {
+                response?.links?.children?.map {
                     countryInformationList.add(
                         CountryInformation(
                             name = it.details.country.name,
@@ -21,9 +19,7 @@ class GetCountriesUseCaseImpl(private val countryRepository: CountryRepository) 
                         )
                     )
                 }
-                countryInformationList.toList().sortedBy {
-                    it.name
-                }
+                countryInformationList.shuffled()
             }
     }
 

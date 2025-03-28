@@ -1,6 +1,6 @@
 package uk.co.flat14.ftaa.presentation.old
 
-import uk.co.flat14.ftaa.domain.model.CountryInformation
+import uk.co.flat14.ftaa.domain.countries.CountryInformation
 
 interface CountryListView {
 
